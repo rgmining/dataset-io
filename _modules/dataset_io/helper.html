@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dataset_io.helper &mdash; Dataset I/O Library 0.9.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+      <link rel="search" type="application/opensearchdescription+xml" title="Search within Dataset I/O Library 0.9.0 documentation" href="../../_static/opensearch.xml"/>
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Dataset I/O Library 0.9.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/>
+  
+  
+  
+  <meta name="title" content="Dataset I/O Library 0.9.0 documentation"/>
+  <meta name="keywords" content="review,data mining,レビュー,マイニング"/>
+  
+
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="Dataset I/O Library 0.9.0 documentation"/>
+  
+  <meta property="og:image" content="https://avatars0.githubusercontent.com/u/22570694" />
+
+  
+  <meta content="summary" name="twitter:card" />
+  <meta content="@junkawamoto" name="twitter:site" />
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-4734862314145555",
+      enable_page_level_ads: true
+    });
+  </script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-82315630-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Dataset I/O Library
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.9.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+  <div class="local-toc"></div>
+  <hr/>
+  <a href="https://rgmining.github.io/">Review Graph Mining</a>
+  <hr/>
+  <div>
+    <div style="width: 300px; margin: auto;">
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:300px;height:600px"
+           data-ad-client="ca-pub-4734862314145555"
+           data-ad-slot="6934003829"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Dataset I/O Library</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>dataset_io.helper</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for dataset_io.helper</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Provide helper functions and classes.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+
+<span class="kn">from</span> <span class="nn">dataset_io.constants</span> <span class="k">import</span> <span class="n">PRODUCT_ID</span>
+<span class="kn">from</span> <span class="nn">dataset_io.constants</span> <span class="k">import</span> <span class="n">REVIEWER_ID</span>
+
+<span class="n">Reviewer</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Reviewer&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">REVIEWER_ID</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">))</span>
+<span class="sd">&quot;&quot;&quot;Named tuple to access reviewer&#39;s attributes easily.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">Product</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Product&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">PRODUCT_ID</span><span class="p">,</span> <span class="s2">&quot;summary&quot;</span><span class="p">))</span>
+<span class="sd">&quot;&quot;&quot;Named tuple to access product&#39;s attribute easily.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="quiet"><a class="viewcode-back" href="../../modules/dataset_io.html#dataset_io.helper.quiet">[docs]</a><span class="k">def</span> <span class="nf">quiet</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Decorator ignoring ValueError.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      f: A function</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      A decorated function which ignores ValueError and returns None</span>
+<span class="sd">      when such exceptions happen.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Decorated function returns None when ValueError occurs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">_</span></div>
+
+
+<div class="viewcode-block" id="convert_date"><a class="viewcode-back" href="../../modules/dataset_io.html#dataset_io.helper.convert_date">[docs]</a><span class="k">def</span> <span class="nf">convert_date</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert data-type data to int.</span>
+
+<span class="sd">    For example, date `2016-01-02` is converted to integer `20160102`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      data: data to convert</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      Int-type date data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="normalize_rating"><a class="viewcode-back" href="../../modules/dataset_io.html#dataset_io.helper.normalize_rating">[docs]</a><span class="k">def</span> <span class="nf">normalize_rating</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Normalize five star ratings between 0 to 1.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      v: rating which is between 1 to 5</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      Normalized rating data between 0 to 1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="mf">4.</span></div>
+
+
+<div class="viewcode-block" id="print_state"><a class="viewcode-back" href="../../modules/dataset_io.html#dataset_io.helper.print_state">[docs]</a><span class="k">def</span> <span class="nf">print_state</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Print a current state of a given graph.</span>
+
+<span class="sd">    This method outputs a current of a graph as a set of json objects.</span>
+<span class="sd">    Graph objects must have two properties; `reviewers` and `products`.</span>
+<span class="sd">    Those properties returns a set of reviewers and products respectively.</span>
+
+<span class="sd">    In this output format, each line represents a reviewer or product object.</span>
+
+<span class="sd">    Reviewer objects are defined as ::</span>
+
+<span class="sd">        {</span>
+<span class="sd">           &quot;iteration&quot;: &lt;the iteration number given as i&gt;</span>
+<span class="sd">           &quot;reviewer&quot;:</span>
+<span class="sd">           {</span>
+<span class="sd">              &quot;reviewer_id&quot;: &lt;Reviewer&#39;s ID&gt;</span>
+<span class="sd">              &quot;score&quot;: &lt;Anomalous score of the reviewer&gt;</span>
+<span class="sd">           }</span>
+<span class="sd">        }</span>
+
+<span class="sd">    Product objects are defined as ::</span>
+
+<span class="sd">        {</span>
+<span class="sd">           &quot;iteration&quot;: &lt;the iteration number given as i&gt;</span>
+<span class="sd">           &quot;reviewer&quot;:</span>
+<span class="sd">           {</span>
+<span class="sd">              &quot;product_id&quot;: &lt;Product&#39;s ID&gt;</span>
+<span class="sd">              &quot;sumarry&quot;: &lt;Summary of the reviews for the product&gt;</span>
+<span class="sd">           }</span>
+<span class="sd">        }</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      g: Graph instance.</span>
+<span class="sd">      i: Iteration number.</span>
+<span class="sd">      output: A writable object (default: sys.stdout).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">reviewers</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span>
+            <span class="s2">&quot;iteration&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span>
+            <span class="s2">&quot;reviewer&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">REVIEWER_ID</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">anomalous_score</span>
+            <span class="p">}</span>
+        <span class="p">},</span> <span class="n">output</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">products</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span>
+            <span class="s2">&quot;iteration&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span>
+            <span class="s2">&quot;product&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">PRODUCT_ID</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">summary</span><span class="p">))</span> <span class="o">*</span> <span class="mf">4.</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="p">}</span>
+        <span class="p">},</span> <span class="n">output</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="parse_state"><a class="viewcode-back" href="../../modules/dataset_io.html#dataset_io.helper.parse_state">[docs]</a><span class="k">def</span> <span class="nf">parse_state</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">reviewer_handler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">product_handler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iteration</span><span class="o">=</span><span class="s2">&quot;final&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Parse a state of a graph from an iterable.</span>
+
+<span class="sd">    Parse a state outputted from print_state and call callback functions.</span>
+<span class="sd">    The callback for reviewer must receive two arguments;</span>
+<span class="sd">    *iteration* and *review object*.</span>
+<span class="sd">    The review object has two attributes; *reviewer_id* and *score*.</span>
+<span class="sd">    The callback for product must Recife&#39;s two arguments;</span>
+<span class="sd">    *iteration* and *product object*.</span>
+<span class="sd">    The product object has two attributes; *product_id* and *summary*.</span>
+<span class="sd">    See print_state for more detail.</span>
+
+<span class="sd">    If the callback is set None, associated objects are not parsed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      fp: An iterable object containing state data.</span>
+<span class="sd">      reviewer_handler: A callback for reviewer (default: None).</span>
+<span class="sd">      product_handler: A callback for product (default: None).</span>
+<span class="sd">      iteration: Choose iteration to be parsed (default: &#39;final&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">ifilter</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">itertools</span><span class="o">.</span><span class="n">imap</span><span class="p">(</span><span class="n">quiet</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">),</span> <span class="n">fp</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="s2">&quot;iteration&quot;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;iteration&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">iteration</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">reviewer_handler</span> <span class="ow">and</span> <span class="s2">&quot;reviewer&quot;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+                <span class="n">reviewer_handler</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">Reviewer</span><span class="p">(</span><span class="o">**</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;reviewer&quot;</span><span class="p">]))</span>
+
+            <span class="k">elif</span> <span class="n">product_handler</span> <span class="ow">and</span> <span class="s2">&quot;product&quot;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;product&quot;</span><span class="p">]</span>
+                <span class="n">product_handler</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">Product</span><span class="p">(</span>
+                    <span class="n">p</span><span class="p">[</span><span class="s2">&quot;product_id&quot;</span><span class="p">],</span> <span class="n">normalize_rating</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;summary&quot;</span><span class="p">])))</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Junpei Kawamoto.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+<p>
+  <div class="addthis_inline_follow_toolbox"></div>
+</p>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.9.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-57f1fa5b740feddd"></script>
+
+
+</body>
+</html>
