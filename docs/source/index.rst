@@ -1,3 +1,6 @@
+:description: This package defines dataset file format and load/output methods
+    for Review Graph Mining Project.
+
 .. _top:
 
 Dataset I/O Library
