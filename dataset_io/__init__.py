@@ -63,6 +63,8 @@ Outputted state information can be used to restore some state by
 This function takes state data and construct a graph which has same state.
 
 
+.. _graph-interface:
+
 Graph interface
 =================
 This package assumes graph, reviewer, and product objects are following
