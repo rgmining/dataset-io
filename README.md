@@ -5,6 +5,8 @@
 [![Code Climate](https://codeclimate.com/github/rgmining/dataset-io/badges/gpa.svg)](https://codeclimate.com/github/rgmining/dataset-io)
 [![Release](https://img.shields.io/badge/release-0.9.0-brightgreen.svg)](https://github.com/rgmining/dataset-io/releases/tag/v0.9.0)
 
+[![Logo](https://rgmining.github.io/dataset-io/_static/image.png)](https://rgmining.github.io/dataset-io/)
+
 This package defines dataset file format and load/output methods for
 [Review Graph Mining Project](https://rgmining.github.io/).
 See [documents](https://rgmining.github.io/dataset-io/) for more information.

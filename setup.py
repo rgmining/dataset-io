@@ -16,7 +16,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+# along with rgmining-common. If not, see <http://www.gnu.org/licenses/>.
 #
 """Package information of dataset I/O library for review graph mining project.
 """
@@ -38,15 +38,16 @@ def _load_requires_from_file(filepath):
 
 setup(
     name='rgmining-dataset-io',
-    version='0.9.0',
+    use_scm_version=True,
     author="Junpei Kawamoto",
     author_email="kawamoto.junpei@gmail.com",
     description="Dataset I/O for Review graph mining project",
     url="https://github.com/rgmining/common",
     packages=find_packages(exclude=["tests"]),
-    package_data={
-        "dataset_io": ["*.csv"]
-    },
+    include_package_data=True,
+    setup_requires=[
+        "setuptools_scm"
+    ],
     install_requires=_load_requires_from_file("requirements.txt"),
     test_suite='tests.suite',
     license="GPLv3",
