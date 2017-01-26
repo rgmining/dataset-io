@@ -1,22 +1,22 @@
 #
 # setup.py
 #
-# Copyright (c) 2016 Junpei Kawamoto
+# Copyright (c) 2016-2017 Junpei Kawamoto
 #
-# This file is part of rgmining-common.
+# This file is part of rgmining-dataset-io.
 #
-# rgmining-common is free software: you can redistribute it and/or modify
+# rgmining-dataset-io is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# rgmining-common is distributed in the hope that it will be useful,
+# rgmining-dataset-io is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with rgmining-common. If not, see <http://www.gnu.org/licenses/>.
+# along with rgmining-dataset-io. If not, see <http://www.gnu.org/licenses/>.
 #
 """Package information of dataset I/O library for review graph mining project.
 """
