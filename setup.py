@@ -20,10 +20,17 @@
 #
 """Package information of dataset I/O library for review graph mining project.
 """
+from os import path
 from setuptools import setup, find_packages
 
 
-def _load_requires_from_file(filepath):
+def read(fname):
+    """Read a file.
+    """
+    return open(path.join(path.dirname(__file__), fname)).read()
+
+
+def load_requires_from_file(filepath):
     """Read a package list from a given file path.
 
     Args:
@@ -42,22 +49,23 @@ setup(
     author="Junpei Kawamoto",
     author_email="kawamoto.junpei@gmail.com",
     description="Dataset I/O for Review graph mining project",
+    long_description=read("README.rst"),
     url="https://github.com/rgmining/common",
     packages=find_packages(exclude=["tests"]),
     include_package_data=True,
     setup_requires=[
         "setuptools_scm"
     ],
-    install_requires=_load_requires_from_file("requirements.txt"),
+    install_requires=load_requires_from_file("requirements.txt"),
     test_suite='tests.suite',
     license="GPLv3",
     classifiers=[
-            "Development Status :: 4 - Beta",
-            "Intended Audience :: Science/Research",
-            "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
-            "Natural Language :: English",
-            "Programming Language :: Python",
-            "Topic :: Software Development :: Libraries",
-            "Topic :: Scientific/Engineering :: Information Analysis"
-        ]
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Natural Language :: English",
+        "Programming Language :: Python",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: Scientific/Engineering :: Information Analysis"
+    ]
 )
