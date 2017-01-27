@@ -31,7 +31,7 @@
 <span class="kn">from</span> <span class="nn">dataset_io.constants</span> <span class="k">import</span> <span class="n">MEMBER_ID</span>
 
 
-<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../modules/dataset_io.html#dataset_io.loader.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">anomalous</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../modules/dataset_io.html#dataset_io.loader.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">anomalous</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="n">normalize_rating</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load a review dataset to a given graph object.</span>
 
 <span class="sd">    The graph object must implement the :ref:`graph-interface` i.e.</span>
@@ -75,22 +75,22 @@
 <span class="sd">      g: graph object where loaded review data are stored.</span>
 <span class="sd">      fp: readable object containing JSON data of a loading table.</span>
 <span class="sd">      anomalous: default anomalous scores (Default: None).</span>
-<span class="sd">      normalize: if True, rating scores are normalized into :math:`[0, 1]`</span>
-<span class="sd">        (Default: True).</span>
+<span class="sd">      normalize: normalize function of rating scores; if set Nont, scores are</span>
+<span class="sd">        not normalized.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">      The graph instance, which is as same as *g*.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">normalize</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span>
+
     <span class="n">reviewers</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">reviewers</span><span class="p">}</span>
     <span class="n">products</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">products</span><span class="p">}</span>
     <span class="k">for</span> <span class="n">review</span> <span class="ow">in</span> <span class="n">ifilter</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">imap</span><span class="p">(</span><span class="n">quiet</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">),</span> <span class="n">fp</span><span class="p">)):</span>
 
         <span class="n">member_id</span> <span class="o">=</span> <span class="n">review</span><span class="p">[</span><span class="n">MEMBER_ID</span><span class="p">]</span>
         <span class="n">product_id</span> <span class="o">=</span> <span class="n">review</span><span class="p">[</span><span class="n">PRODUCT_ID</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
-            <span class="n">rating</span> <span class="o">=</span> <span class="n">normalize_rating</span><span class="p">(</span><span class="n">review</span><span class="p">[</span><span class="s2">&quot;rating&quot;</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">rating</span> <span class="o">=</span> <span class="n">review</span><span class="p">[</span><span class="s2">&quot;rating&quot;</span><span class="p">]</span>
+        <span class="n">rating</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">review</span><span class="p">[</span><span class="s2">&quot;rating&quot;</span><span class="p">])</span>
         <span class="n">date</span> <span class="o">=</span> <span class="n">convert_date</span><span class="p">(</span><span class="n">review</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
 
         <span class="k">if</span> <span class="n">member_id</span> <span class="ow">in</span> <span class="n">reviewers</span><span class="p">:</span>
