@@ -67,12 +67,13 @@ class Graph(object):
         """
         return self._products.values()
 
-    def new_reviewer(self, name, anomalous):
+    def new_reviewer(self, name, anomalous=0):
         """create and register a new reviewer.
 
         New reviewer has a given `name` and be initialized by a given
         `anomalous` score.
         """
+        assert name not in self._reviewers
         res = Reviewer(name, anomalous)
         self._reviewers[name] = res
         return res
@@ -80,6 +81,7 @@ class Graph(object):
     def new_product(self, name):
         """create and register a new product which has a given `name`.
         """
+        assert name not in self._products
         res = Product(name, 0)
         self._products[name] = res
         return res
