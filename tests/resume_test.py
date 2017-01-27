@@ -39,17 +39,25 @@ class TestResume(unittest.TestCase):
         """Create a sample graph and its JSON data.
         """
         self.graph = Graph()
+        reviewers = {}
+        products = {}
         for r in range(10):
             for p in range(5):
                 if random.random() > 0.5:
-                    member_id = "r{0}".format(r)
-                    product_id = "p{0}".format(p)
-                    rating = normalize_rating(random.randint(1, 5))
+                    continue
 
-                    self.graph.add_review(
-                        self.graph.new_reviewer(member_id, 0.),
-                        self.graph.new_product(product_id),
-                        rating, "2014-01-01")
+                member_id = "r{0}".format(r)
+                product_id = "p{0}".format(p)
+                rating = normalize_rating(random.randint(1, 5))
+
+                if member_id not in reviewers:
+                    reviewers[member_id] = self.graph.new_reviewer(member_id)
+                if product_id not in products:
+                    products[product_id] = self.graph.new_product(product_id)
+
+                self.graph.add_review(
+                    reviewers[member_id], products[product_id],
+                    rating, "2014-01-01")
 
     def test(self):
         """Test resume method with a random graph and states.

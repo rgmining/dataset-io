@@ -30,10 +30,11 @@ from dataset_io.constants import PRODUCT_ID
 from dataset_io.constants import MEMBER_ID
 
 
-def load(g, fp, anomalous=None):
+def load(g, fp, anomalous=None, normalize=True):
     """Load a review dataset to a given graph object.
 
-    The graph object must have the following methods;
+    The graph object must implement the :ref:`graph-interface` i.e.
+    it must have the following methods:
 
     new_reviewer(name, anomalous)
         create and register a new reviewer which has a given `name` and
@@ -47,6 +48,13 @@ def load(g, fp, anomalous=None):
     add_review(self, reviewer, product, review, date)
         add a new review from `reviewer` to `product` issued in `date`,
         in which the review is a float value.
+
+    and must have the following properties:
+
+    reviewers (readable)
+        a set of reviewers,
+    products (readable)
+        a set of products.
 
     `fp` is an iterative object which yields a JSON string representing a review.
     Each review must have the following elements::
@@ -66,17 +74,22 @@ def load(g, fp, anomalous=None):
       g: graph object where loaded review data are stored.
       fp: readable object containing JSON data of a loading table.
       anomalous: default anomalous scores (Default: None).
+      normalize: if True, rating scores are normalized into :math:`[0, 1]`
+        (Default: True).
 
     Returns:
       The graph instance, which is as same as *g*.
     """
-    reviewers = {}
-    products = {}
+    reviewers = {r.name: r for r in g.reviewers}
+    products = {p.name: p for p in g.products}
     for review in ifilter(bool, imap(quiet(json.loads), fp)):
 
         member_id = review[MEMBER_ID]
         product_id = review[PRODUCT_ID]
-        rating = normalize_rating(review["rating"])
+        if normalize:
+            rating = normalize_rating(review["rating"])
+        else:
+            rating = review["rating"]
         date = convert_date(review["date"])
 
         if member_id in reviewers:
