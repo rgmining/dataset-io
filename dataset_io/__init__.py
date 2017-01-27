@@ -23,6 +23,8 @@
 This package provides a set of methods to load review datasets and output
 mining results in JSON format.
 
+.. _review-data:
+
 Review data
 =============
 Review data are a set of tuples.
