@@ -86,6 +86,50 @@ class TestLoad(unittest.TestCase):
         for r in g.reviewers:
             self.assertEqual(r.anomalous_score, anomalous)
 
+    def test_load_twice(self):
+        """Test even if load function is called twice, it loads correct dataset.
+        """
+        # Load a dataset.
+        g = loader.load(Graph(), self.input)
+
+        # Create another dataset which some nodes are overrapped.
+        max_reviewers = 15
+        max_products = 10
+        buf = StringIO.StringIO()
+        for r in range(5, max_reviewers):
+            for p in range(3, max_products):
+                if random.random() > 0.5:
+                    continue
+
+                member_id = "r{0}".format(r)
+                product_id = "p{0}".format(p)
+                if product_id in self.reviews[member_id]:
+                    continue
+
+                rating = random.randint(1, 5)
+                self.reviews[member_id][
+                    product_id] = normalize_rating(rating)
+                self.size += 1
+                json.dump({
+                    "member_id": member_id,
+                    "product_id": product_id,
+                    "rating": rating,
+                    "date": "2014-01-01"
+                }, buf)
+                buf.write("\n")
+
+        # Load another dataset.
+        g = loader.load(g, buf.getvalue().strip().split("\n"))
+
+        self.assertEqual(len(g.review), self.size)
+        self.assertEqual(len(g.reviewers), max_reviewers)
+        self.assertEqual(len(g.products), max_products)
+        for r in g.review:
+            self.assertIn(r.member_id, self.reviews)
+            self.assertIn(r.product_id, self.reviews[r.member_id])
+            self.assertAlmostEqual(
+                r.rating, self.reviews[r.member_id][r.product_id])
+
 
 if __name__ == "__main__":
     unittest.main()

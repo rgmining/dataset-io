@@ -99,7 +99,7 @@ Graph object maintains relationship between reviewers and products.
 Most of algorithms treat it by a bipartite graph but any modeling is allowed.
 
 Any graph object needs to supply some methods and properties.
-The required methods are the followings;
+The required methods are the followings:
 
 new_reviewer(name, anomalous)
     create and register a new reviewer which has a given `name` and
@@ -114,7 +114,7 @@ add_review(self, reviewer, product, review, date)
     add a new review from `reviewer` to `product` issued in `date`,
     in which the review is a float value.
 
-The required properties are the followings;
+The required properties are the followings:
 
 reviewers (readable)
     a set of reviewers,
