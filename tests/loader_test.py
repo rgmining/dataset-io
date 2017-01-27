@@ -72,6 +72,17 @@ class TestLoad(unittest.TestCase):
             self.assertAlmostEqual(
                 r.rating, self.reviews[r.member_id][r.product_id])
 
+    def test_without_normalizing(self):
+        """Test load method without normalizing rating scores.
+        """
+        g = loader.load(Graph(), self.input, normalize=False)
+        self.assertEqual(len(g.review), self.size)
+        for r in g.review:
+            self.assertIn(r.member_id, self.reviews)
+            self.assertIn(r.product_id, self.reviews[r.member_id])
+            self.assertAlmostEqual(
+                r.rating, self.reviews[r.member_id][r.product_id] * 4 + 1)
+
     def test_with_anomalous(self):
         """Test load method with specifying default anomalous score.
         """

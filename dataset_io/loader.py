@@ -30,7 +30,7 @@ from dataset_io.constants import PRODUCT_ID
 from dataset_io.constants import MEMBER_ID
 
 
-def load(g, fp, anomalous=None):
+def load(g, fp, anomalous=None, normalize=True):
     """Load a review dataset to a given graph object.
 
     The graph object must implement the :ref:`graph-interface` i.e.
@@ -74,6 +74,8 @@ def load(g, fp, anomalous=None):
       g: graph object where loaded review data are stored.
       fp: readable object containing JSON data of a loading table.
       anomalous: default anomalous scores (Default: None).
+      normalize: if True, rating scores are normalized into :math:`[0, 1]`
+        (Default: True).
 
     Returns:
       The graph instance, which is as same as *g*.
@@ -84,7 +86,10 @@ def load(g, fp, anomalous=None):
 
         member_id = review[MEMBER_ID]
         product_id = review[PRODUCT_ID]
-        rating = normalize_rating(review["rating"])
+        if normalize:
+            rating = normalize_rating(review["rating"])
+        else:
+            rating = review["rating"]
         date = convert_date(review["date"])
 
         if member_id in reviewers:
