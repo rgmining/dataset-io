@@ -75,7 +75,7 @@ class TestLoad(unittest.TestCase):
     def test_without_normalizing(self):
         """Test load method without normalizing rating scores.
         """
-        g = loader.load(Graph(), self.input, normalize=False)
+        g = loader.load(Graph(), self.input, normalize=None)
         self.assertEqual(len(g.review), self.size)
         for r in g.review:
             self.assertIn(r.member_id, self.reviews)
@@ -109,9 +109,6 @@ class TestLoad(unittest.TestCase):
         buf = StringIO.StringIO()
         for r in range(5, max_reviewers):
             for p in range(3, max_products):
-                if random.random() > 0.5:
-                    continue
-
                 member_id = "r{0}".format(r)
                 product_id = "p{0}".format(p)
                 if product_id in self.reviews[member_id]:
