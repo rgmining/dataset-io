@@ -130,8 +130,6 @@ class TestLoad(unittest.TestCase):
         g = loader.load(g, buf.getvalue().strip().split("\n"))
 
         self.assertEqual(len(g.review), self.size)
-        self.assertEqual(len(g.reviewers), max_reviewers)
-        self.assertEqual(len(g.products), max_products)
         for r in g.review:
             self.assertIn(r.member_id, self.reviews)
             self.assertIn(r.product_id, self.reviews[r.member_id])
