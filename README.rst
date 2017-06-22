@@ -33,7 +33,7 @@ This software is released under The GNU General Public License Version
    :target: https://app.wercker.com/project/byKey/9fee858cf80340e29b17687c0879fa4f
 .. |Code Climate| image:: https://codeclimate.com/github/rgmining/dataset-io/badges/gpa.svg
    :target: https://codeclimate.com/github/rgmining/dataset-io
-.. |Release| image:: https://img.shields.io/badge/release-0.9.1-brightgreen.svg
-   :target: https://github.com/rgmining/dataset-io/releases/tag/v0.9.1
+.. |Release| image:: https://img.shields.io/badge/release-0.9.2-brightgreen.svg
+   :target: https://github.com/rgmining/dataset-io/releases/tag/v0.9.2
 .. |Logo| image:: https://rgmining.github.io/dataset-io/_static/image.png
    :target: https://rgmining.github.io/dataset-io/
