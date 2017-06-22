@@ -20,10 +20,14 @@
 #
 """Unit tests for dataset_io.loader module.
 """
+# pylint: disable=invalid-name
 from collections import defaultdict
 import json
 import random
-import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 import unittest
 
 from dataset_io import loader
@@ -42,7 +46,7 @@ class TestLoad(unittest.TestCase):
         self.reviews = defaultdict(dict)
         self.size = 0
 
-        buf = StringIO.StringIO()
+        buf = StringIO()
         for r in range(10):
             for p in range(5):
                 if random.random() > 0.5:
@@ -106,7 +110,7 @@ class TestLoad(unittest.TestCase):
         # Create another dataset which some nodes are overrapped.
         max_reviewers = 15
         max_products = 10
-        buf = StringIO.StringIO()
+        buf = StringIO()
         for r in range(5, max_reviewers):
             for p in range(3, max_products):
                 member_id = "r{0}".format(r)

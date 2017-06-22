@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with rgmining-dataset-io. If not, see <http://www.gnu.org/licenses/>.
 #
-# pylint: disable=protected-access
+# pylint: disable=protected-access, invalid-name
 """Unit tests for dataset_io.sampler module.
 """
 from __future__ import division

@@ -20,9 +20,14 @@
 #
 """Load review data formatted in JSON to a graph object.
 """
+# pylint: disable=invalid-name
 from __future__ import absolute_import
 import json
-from itertools import imap, ifilter
+try:
+    from itertools import imap, ifilter
+except ImportError:
+    imap = map
+    ifilter = filter
 from dataset_io.helper import convert_date
 from dataset_io.helper import normalize_rating
 from dataset_io.helper import quiet

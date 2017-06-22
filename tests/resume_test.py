@@ -20,8 +20,12 @@
 #
 """Unit tests for dataset_io.resume module.
 """
-import StringIO
+# pylint: disable=invalid-name
 import random
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 import unittest
 
 from dataset_io import resume
@@ -62,7 +66,7 @@ class TestResume(unittest.TestCase):
     def test(self):
         """Test resume method with a random graph and states.
         """
-        output = StringIO.StringIO()
+        output = StringIO()
 
         # Construct a target state.
         anomalous_score = random.random()

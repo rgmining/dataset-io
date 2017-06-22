@@ -20,8 +20,13 @@
 #
 """Provide helper functions and classes.
 """
+# pylint: disable=invalid-name
 from __future__ import absolute_import
-import itertools
+try:
+    from itertools import imap, ifilter
+except ImportError:
+    imap = map
+    ifilter = filter
 import json
 import sys
 from functools import wraps
@@ -163,7 +168,7 @@ def parse_state(fp, reviewer_handler=None, product_handler=None, iteration="fina
       product_handler: A callback for product (default: None).
       iteration: Choose iteration to be parsed (default: 'final').
     """
-    for item in itertools.ifilter(bool, itertools.imap(quiet(json.loads), fp)):
+    for item in ifilter(bool, imap(quiet(json.loads), fp)):
         if not isinstance(item, dict) or not "iteration" in item:
             continue
 

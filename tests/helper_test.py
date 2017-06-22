@@ -20,10 +20,14 @@
 #
 """Unit tests for dataset_io.helper module.
 """
+# pylint: disable=invalid-name
 from collections import namedtuple
 import json
 import random
-import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 import unittest
 
 from dataset_io import helper
@@ -73,7 +77,7 @@ class TestQuiet(unittest.TestCase):
     """Test case for quite method.
     """
 
-    def test_value_error(self):
+    def test_value_error(self):  # pylint: disable=no-self-use
         """Test with a value error.
         """
         @helper.quiet
@@ -83,7 +87,7 @@ class TestQuiet(unittest.TestCase):
             raise ValueError
         sample_function()
 
-    def test_no_error(self):
+    def test_no_error(self):  # pylint: disable=no-self-use
         """Test with non error function.
         """
         @helper.quiet
@@ -145,7 +149,7 @@ class TestPrintParseState(unittest.TestCase):
         """Test print_state with simple data.
         """
         i = "abs"
-        output = StringIO.StringIO()
+        output = StringIO()
         helper.print_state(self.graph, i, output)
 
         for line in output.getvalue().split("\n"):
@@ -169,7 +173,7 @@ class TestPrintParseState(unittest.TestCase):
     def test_parse_state(self):
         """Test parse_state with simple data.
         """
-        output = StringIO.StringIO()
+        output = StringIO()
         for i in range(10):
             helper.print_state(self.graph, i, output)
 
