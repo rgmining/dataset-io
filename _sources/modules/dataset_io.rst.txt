@@ -1,5 +1,5 @@
-dataset_io package
-==================
+dataset\_io package
+===================
 
 .. automodule:: dataset_io
     :members:
@@ -9,40 +9,40 @@ dataset_io package
 Submodules
 ----------
 
-dataset_io.constants module
----------------------------
+dataset\_io\.constants module
+-----------------------------
 
 .. automodule:: dataset_io.constants
     :members:
     :undoc-members:
     :show-inheritance:
 
-dataset_io.helper module
-------------------------
+dataset\_io\.helper module
+--------------------------
 
 .. automodule:: dataset_io.helper
     :members:
     :undoc-members:
     :show-inheritance:
 
-dataset_io.loader module
-------------------------
+dataset\_io\.loader module
+--------------------------
 
 .. automodule:: dataset_io.loader
     :members:
     :undoc-members:
     :show-inheritance:
 
-dataset_io.resume module
-------------------------
+dataset\_io\.resume module
+--------------------------
 
 .. automodule:: dataset_io.resume
     :members:
     :undoc-members:
     :show-inheritance:
 
-dataset_io.sampler module
--------------------------
+dataset\_io\.sampler module
+---------------------------
 
 .. automodule:: dataset_io.sampler
     :members:
