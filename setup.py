@@ -39,7 +39,7 @@ def load_requires_from_file(filepath):
     Returns:
       a list of package names.
     """
-    with open(filepath) as fp:
+    with open(filepath) as fp:  # pylint: disable=invalid-name
         return [pkg_name.strip() for pkg_name in fp.readlines()]
 
 
@@ -65,6 +65,8 @@ setup(
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Natural Language :: English",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.6",
         "Topic :: Software Development :: Libraries",
         "Topic :: Scientific/Engineering :: Information Analysis"
     ]

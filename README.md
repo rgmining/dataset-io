@@ -14,7 +14,7 @@ See [documents](https://rgmining.github.io/dataset-io/) for more information.
 ## Installation
 Use `pip` to install this package.
 
-```
+```shell
 pip install --upgrade rgmining-dataset-io
 ```
 
